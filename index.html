@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFC Брелки Нового Поколения</title>
+    <style>
+        :root {
+            --primary-color: #1e88e5;
+            --primary-hover: #1565c0;
+            --text-dark: #0d1b2a;
+            --text-muted: #627d98;
+            --bg-light: #f8fafd;
+            --bg-white: #ffffff;
+            --border-color: #e4e7eb;
+            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: var(--bg-white);
+            display: flex;
+            align-items: center;
+            min-height: 80vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero .container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            gap: 40px;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 550px;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 24px;
+            color: var(--text-dark);
+        }
+
+        .hero-title span {
+            color: var(--primary-color);
+            display: block;
+        }
+
+        .hero-description {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-bottom: 36px;
+            max-width: 480px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--bg-white);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-primary svg {
+            margin-left: 8px;
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--bg-light);
+            border-color: #cbd5e1;
+        }
+
+        .hero-image-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mock-image {
+            background-color: #e2e8f0;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-weight: 500;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .hero-image-container .mock-image {
+            width: 100%;
+            max-width: 540px;
+            height: 360px;
+        }
+
+        /* Section Typography */
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 38px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .section-title span {
+            color: var(--primary-color);
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Grid Cards Layout */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background-color: var(--bg-white);
+            border: 1px solid rgba(228, 231, 235, 0.6);
+            border-radius: 16px;
+            padding: 32px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            background-color: var(--primary-color);
+            color: var(--bg-white);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .card-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-dark);
+        }
+
+        .card-text {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* How it works Section */
+        .how-it-works {
+            background-color: var(--bg-white);
+        }
+
+        .how-it-works .container {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .steps-container {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .step-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            background-color: var(--primary-color);
+            color: var(--bg-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .step-content-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text-dark);
+        }
+
+        .step-content-text {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .how-it-works-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .how-it-works-image .mock-image {
+            width: 100%;
+            max-width: 540px;
+            height: 380px;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--bg-light);
+            border-top: 1px solid var(--border-color);
+            padding: 60px 0 30px 0;
+        }
+
+        .footer-main {
+            display: grid;
+            grid-template-columns: 2fr repeat(2, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 16px;
+        }
+
+        .footer-brand-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            max-width: 280px;
+        }
+
+        .footer-col-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a, .footer-contact-item {
+            font-size: 14px;
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-contact-item {
+            margin-bottom: 12px;
+        }
+
+        .footer-contact-item svg {
+            width: 16px;
+            height: 16px;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border-color);
+            padding-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero .container, .how-it-works .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-content, .steps-container {
+                max-width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .hero-description {
+                margin: 0 auto 36px auto;
+            }
+            .step-item {
+                text-align: left;
+                max-width: 500px;
+            }
+            .footer-main {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">NFC Брелки<br><span>Нового Поколения</span></h1>
+                <p class="hero-description">Современная технология бесконтактной передачи данных в элегантном дизайне. Мгновенный обмен информацией одним касанием.</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-primary">
+                        Заказать сейчас
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="btn btn-secondary">Узнать больше</a>
+                </div>
+            </div>
+            <div class="hero-image-container">
+                <div class="mock-image">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom: 16px;">
+                        <circle cx="12" cy="12" r="9"/>
+                        <path d="M12 15V12M12 9H12.01"/>
+                    </svg>
+                    <span>[ Изображение: NFC Брелок на столе ]</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="benefits">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Преимущества <span>NFC технологии</span></h2>
+                <p class="section-subtitle">Откройте для себя все возможности современных бесконтактных технологий</p>
+            </div>
+            <div class="grid-cards">
+                <div class="card">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 21.27a1.01 1.01 0 0 1-.71-.29l-14-14a1 1.01 0 0 1 0-1.42 16.06 16.06 0 0 1 29.42 0 1 1 0 0 1 0 1.42l-14 14a1.01 1.01 0 0 1-.71.29zm-10.59-15L12 16.89l10.59-10.62a14.07 14.07 0 0 0-21.18 0z"/></svg>
+                    </div>
+                    <h3 class="card-title">Бесконтактная связь</h3>
+                    <p class="card-text">Технология NFC позволяет передавать данные одним касанием без необходимости подключения к интернету</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24"><path d="M19 10h-5.45l1.79-6.39a1 1 0 0 0-1.57-1l-9 11a1 1 0 0 0 .78 1.64H11l-1.63 6.49a1 1 0 0 0 1.63 1l10-12A1 1 0 0 0 19 10z"/></svg>
+                    </div>
+                    <h3 class="card-title">Мгновенная передача</h3>
+                    <p class="card-text">Обмен информацией происходит за доли секунды - быстрее, чем QR-коды или ручной ввод</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <h3 class="card-title">Безопасность</h3>
+                    <p class="card-text">Защищенная передача данных с использованием современных стандартов шифрования NFC</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24"><path d="M17 2H7c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-5 18c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm5.25-3H6.75V6h10.5v11z"/></svg>
+                    </div>
+                    <h3 class="card-title">Универсальность</h3>
+                    <p class="card-text">Совместимость со всеми современными смартфонами с поддержкой NFC технологии</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <div class="container">
+            <div class="steps-container">
+                <div class="section-header" style="text-align: left; margin-bottom: 40px;">
+                    <h2 class="section-title">Как это <span>работает?</span></h2>
+                    <p class="section-subtitle" style="margin: 0;">Три простых шага для использования NFC брелка</p>
+                </div>
+                
+                <div class="step-item">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h4 class="step-content-title">Программирование</h4>
+                        <p class="step-content-text">Загрузите нужную информацию на NFC брелок - контакты, ссылки, профили соцсетей</p>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h4 class="step-content-title">Касание</h4>
+                        <p class="step-content-text">Приблизьте брелок к смартфону с NFC на расстояние до 4 см</p>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h4 class="step-content-title">Готово</h4>
+                        <p class="step-content-text">Информация мгновенно передается на устройство без необходимости разблокировки</p>
+                    </div>
+                </div>
+            </div>
+            <div class="how-it-works-image">
+                <div class="mock-image">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom: 16px;">
+                        <path d="M10 14a3.5 3.5 0 0 0 5 0l4-4a3.5 3.5 0 0 0-5-5l-.5.5"/>
+                        <path d="M14 10a3.5 3.5 0 0 0-5 0l-4 4a3.5 3.5 0 0 0 5 5l.5-.5"/>
+                    </svg>
+                    <span>[ Изображение: Процесс считывания брелка ]</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="use-cases">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Варианты <span>применения</span></h2>
+                <p class="section-subtitle">NFC брелки находят применение в самых различных сферах жизни</p>
+            </div>
+            <div class="grid-cards">
+                <div class="card">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg>
+                    </div>
+                    <h3 class="card-title">Для бизнеса</h3>
+                    <p class="card-text">Визитные карточки нового поколения. Делитесь контактами мгновенно на встречах и мероприятиях.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 1.34 5 3s1.34 3 8 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                    </div>
+                    <h3 class="card-title">Социальные сети</h3>
+                    <p class="card-text">Мгновенная передача ссылок на профили в Instagram, TikTok, LinkedIn и других платформах.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                    </div>
+                    <h3 class="card-title">Умный дом</h3>
+                    <p class="card-text">Быстрый доступ к настройкам Wi-Fi, управление умными устройствами одним касанием.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.65-.5-.65C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h16v6z"/></svg>
+                    </div>
+                    <h3 class="card-title">Персональные подарки</h3>
+                    <p class="card-text">Уникальный подарок с персонализированным сообщением, фотографией или специальной ссылкой.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="footer-brand-title">NFC Брелки</div>
+                    <p class="footer-brand-desc">Современные технологии для удобного обмена информацией</p>
+                </div>
+                <div class="footer-col">
+                    <div class="footer-col-title">Контакты</div>
+                    <div class="footer-contact-item">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L22 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        <span>info@nfc-keychains.ru</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                        <span>+7 (900) 123-45-67</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        <span>Москва, Россия</span>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <div class="footer-col-title">Информация</div>
+                    <ul class="footer-links">
+                        <li><a href="#">О продукте</a></li>
+                        <li><a href="#">Технические характеристики</a></li>
+                        <li><a href="#">Доставка и оплата</a></li>
+                        <li><a href="#">Гарантия</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 NFC Брелки. Все права защищены.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
